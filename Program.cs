@@ -1,4 +1,5 @@
-﻿using ContosoUniversity.Models;
+﻿using ContosoUniversity.Data;
+using ContosoUniversity.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace ContosoUniversity
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static async System.Threading.Tasks.Task Main(string[] args)
 		{
 			var host = CreateWebHostBuilder(args).Build();
 
@@ -20,7 +21,9 @@ namespace ContosoUniversity
 				try
 				{
 					var context = services.GetRequiredService<SchoolContext>();
-					context.Database.EnsureCreated();
+					await DbInitializer.InitializeAsync(context);
+
+					// context.Database.EnsureCreated();
 				}
 				catch (Exception ex)
 				{
