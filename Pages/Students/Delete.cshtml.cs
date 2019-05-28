@@ -9,50 +9,62 @@ using ContosoUniversity.Models;
 
 namespace ContosoUniversity.Pages.Students
 {
-    public class DeleteModel : PageModel
-    {
-        private readonly ContosoUniversity.Models.SchoolContext _context;
+	public class DeleteModel : PageModel
+	{
+		private readonly ContosoUniversity.Models.SchoolContext _context;
 
-        public DeleteModel(ContosoUniversity.Models.SchoolContext context)
-        {
-            _context = context;
-        }
+		public DeleteModel(ContosoUniversity.Models.SchoolContext context)
+		{
+			_context = context;
+		}
 
-        [BindProperty]
-        public Student Student { get; set; }
+		[BindProperty]
+		public Student Student { get; set; }
+		public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.ID == id);
+			Student = await _context
+				.Student
+				.AsNoTracking()
+				.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Student == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
+			if (Student == null)
+			{
+				return NotFound();
+			}
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+			if (saveChangesError.GetValueOrDefault()) ErrorMessage = "Delete failed. Try again";
 
-            Student = await _context.Student.FindAsync(id);
+			return Page();
+		}
 
-            if (Student != null)
-            {
-                _context.Student.Remove(Student);
-                await _context.SaveChangesAsync();
-            }
+		public async Task<IActionResult> OnPostAsync(int? id)
+		{
+			if (id == null) return NotFound();
 
-            return RedirectToPage("./Index");
-        }
-    }
+			Student = await _context.Student.FindAsync(id);
+
+			try
+			{
+				if (Student != null)
+				{
+					_context.Student.Remove(Student);
+					await _context.SaveChangesAsync();
+				}
+				return RedirectToPage("./Index");
+
+			}
+			catch (DbUpdateException /* ex */)
+			{
+				// logging not relevent at this time
+				return RedirectToAction("./Delete", new { id, saveChangesError = true });
+			}
+		}
+	}
 }
