@@ -20,7 +20,11 @@ namespace ContosoUniversity.Pages.Students
 		}
 
 		[BindProperty]
-		public Student Student { get; set; }
+		//overposting protection version 1
+		//public Student Student { get; set; }
+
+		//overposting protection version 2
+		public StudentViewModel StudentVM { get; set; }
 
 		public async Task<IActionResult> OnPostAsync()
 		{
@@ -29,19 +33,26 @@ namespace ContosoUniversity.Pages.Students
 				return Page();
 			}
 
-			var emptyStudent = new Student();
+			//overposting protection version 1
+			//var emptyStudent = new Student();
+			//if (await TryUpdateModelAsync<Student>(
+			//	emptyStudent,
+			//	"student",
+			//	s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
+			//{
+			//	_context.Student.Add(emptyStudent);
+			//	await _context.SaveChangesAsync();
+			//	return RedirectToPage("./Index");
+			//};
+			//return null;
 
-			if (await TryUpdateModelAsync<Student>(
-				emptyStudent,
-				"student",
-				s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
-			{
-				_context.Student.Add(emptyStudent);
-				await _context.SaveChangesAsync();
-				return RedirectToPage("./Index");
-			};
+			//overposting protection version 2
+			var newStudent = _context.Add(new Student());
+			newStudent.CurrentValues.SetValues(StudentVM);
+			await _context.SaveChangesAsync();
 
-			return null;
+			return RedirectToPage("./Index");
+			
 		}
 	}
 }
