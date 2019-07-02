@@ -11,7 +11,7 @@ namespace ContosoUniversity.Data
 		public static async Task InitializeAsync(SchoolContext context)
 		{
 			// ensure db schema present
-			context.Database.EnsureCreated();
+			// context.Database.EnsureCreated();
 
 			// look for students
 			if (context.Student.Any())

@@ -22,8 +22,6 @@ namespace ContosoUniversity
 				{
 					var context = services.GetRequiredService<SchoolContext>();
 					await DbInitializer.InitializeAsync(context);
-
-					// context.Database.EnsureCreated();
 				}
 				catch (Exception ex)
 				{
