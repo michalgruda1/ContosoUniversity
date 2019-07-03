@@ -10,7 +10,7 @@ namespace ContosoUniversity
 {
 	public class Program
 	{
-		public static async System.Threading.Tasks.Task Main(string[] args)
+		public static void Main(string[] args)
 		{
 			var host = CreateWebHostBuilder(args).Build();
 
@@ -21,7 +21,7 @@ namespace ContosoUniversity
 				try
 				{
 					var context = services.GetRequiredService<SchoolContext>();
-					await DbInitializer.InitializeAsync(context);
+					DbInitializer.Initialize(context);
 				}
 				catch (Exception ex)
 				{
