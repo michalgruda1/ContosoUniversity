@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Profiling.Storage;
+using System;
 
 namespace ContosoUniversity
 {
@@ -35,6 +37,9 @@ namespace ContosoUniversity
 							options.UseLazyLoadingProxies()
 											.UseSqlServer(Configuration.GetConnectionString("SchoolContext"))
 							);
+
+			// Note .AddMiniProfiler() returns a IMiniProfilerBuilder for easy intellisense
+			services.AddMiniProfiler();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +58,7 @@ namespace ContosoUniversity
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+			app.UseMiniProfiler();
 
 			app.UseMvc();
 		}

@@ -44,7 +44,9 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
-        @RenderBody()
+        <profile name="Body profile">
+            @RenderBody()
+        </profile>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Contoso University</p>
@@ -73,5 +75,8 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
+    <mini-profiler />
+
 </body>
 </html>
