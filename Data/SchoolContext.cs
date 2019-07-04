@@ -29,6 +29,11 @@ namespace ContosoUniversity.Models
 
 			modelBuilder.Entity<CourseAssignment>()
 				.HasKey(c => new { c.CourseID, c.InstructorID });
+
+			modelBuilder.Entity<Department>()
+				.HasOne(d => d.Administrator)
+				.WithMany()
+				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }
