@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Profiling.Storage;
-using System;
 
 namespace ContosoUniversity
 {
@@ -34,9 +32,7 @@ namespace ContosoUniversity
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddDbContext<SchoolContext>(options =>
-							options.UseLazyLoadingProxies()
-											.UseSqlServer(Configuration.GetConnectionString("SchoolContext"))
-							);
+							options.UseSqlServer(Configuration.GetConnectionString("SchoolContext")));
 
 			// Note .AddMiniProfiler() returns a IMiniProfilerBuilder for easy intellisense
 			services.AddMiniProfiler();
