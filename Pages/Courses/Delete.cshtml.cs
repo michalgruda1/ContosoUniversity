@@ -9,51 +9,57 @@ using ContosoUniversity.Models;
 
 namespace ContosoUniversity.Pages.Courses
 {
-    public class DeleteModel : PageModel
-    {
-        private readonly ContosoUniversity.Models.SchoolContext _context;
+	public class DeleteModel : PageModel
+	{
+		private readonly ContosoUniversity.Models.SchoolContext _context;
 
-        public DeleteModel(ContosoUniversity.Models.SchoolContext context)
-        {
-            _context = context;
-        }
+		public DeleteModel(ContosoUniversity.Models.SchoolContext context)
+		{
+			_context = context;
+		}
 
-        [BindProperty]
-        public Course Course { get; set; }
+		[BindProperty]
+		public Course Course { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		public async Task<IActionResult> OnGetAsync(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            Course = await _context.Course
-                .Include(c => c.Department).FirstOrDefaultAsync(m => m.CourseID == id);
+			Course = await _context.Course
+					.AsNoTracking()
+					.Include(c => c.Department)
+					.SingleOrDefaultAsync(m => m.CourseID == id);
 
-            if (Course == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
+			if (Course == null)
+			{
+				return NotFound();
+			}
+			return Page();
+		}
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		public async Task<IActionResult> OnPostAsync(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            Course = await _context.Course.FindAsync(id);
+			// Course = await _context.Course.FindAsync(id);
+			Course = await _context.Course
+			.AsNoTracking()
+			.SingleOrDefaultAsync(m => m.CourseID == id);
 
-            if (Course != null)
-            {
-                _context.Course.Remove(Course);
-                await _context.SaveChangesAsync();
-            }
 
-            return RedirectToPage("./Index");
-        }
-    }
+			if (Course != null)
+			{
+				_context.Course.Remove(Course);
+				await _context.SaveChangesAsync();
+			}
+
+			return RedirectToPage("./Index");
+		}
+	}
 }

@@ -9,32 +9,34 @@ using ContosoUniversity.Models;
 
 namespace ContosoUniversity.Pages.Courses
 {
-    public class DetailsModel : PageModel
-    {
-        private readonly ContosoUniversity.Models.SchoolContext _context;
+	public class DetailsModel : PageModel
+	{
+		private readonly ContosoUniversity.Models.SchoolContext _context;
 
-        public DetailsModel(ContosoUniversity.Models.SchoolContext context)
-        {
-            _context = context;
-        }
+		public DetailsModel(ContosoUniversity.Models.SchoolContext context)
+		{
+			_context = context;
+		}
 
-        public Course Course { get; set; }
+		public Course Course { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		public async Task<IActionResult> OnGetAsync(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            Course = await _context.Course
-                .Include(c => c.Department).FirstOrDefaultAsync(m => m.CourseID == id);
+			Course = await _context.Course
+				.AsNoTracking()
+				.Include(c => c.Department)
+				.FirstOrDefaultAsync(m => m.CourseID == id);
 
-            if (Course == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
-    }
+			if (Course == null)
+			{
+				return NotFound();
+			}
+			return Page();
+		}
+	}
 }
