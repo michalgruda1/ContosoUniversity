@@ -25,7 +25,7 @@ namespace ContosoUniversity.Pages.Courses
 				return NotFound();
 			}
 
-			Course = await _context.Course
+			Course = await _context.Courses
 					.Include(c => c.Department).SingleOrDefaultAsync(m => m.CourseID == id);
 
 			if (Course == null)
@@ -45,7 +45,7 @@ namespace ContosoUniversity.Pages.Courses
 				return Page();
 			}
 
-			var courseToUpdate = await _context.Course.FindAsync(id);
+			var courseToUpdate = await _context.Courses.FindAsync(id);
 
 			if (await TryUpdateModelAsync<Course>(
 					 courseToUpdate,

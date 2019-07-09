@@ -25,7 +25,7 @@ namespace ContosoUniversity.Pages.Students
 				return NotFound();
 			}
 
-			Student = await _context.Student.FindAsync(id);
+			Student = await _context.Students.FindAsync(id);
 
 			if (Student == null)
 			{
@@ -41,7 +41,7 @@ namespace ContosoUniversity.Pages.Students
 				return Page();
 			}
 
-			var studentToUpdate = await _context.Student.FindAsync(id);
+			var studentToUpdate = await _context.Students.FindAsync(id);
 
 			if (await TryUpdateModelAsync<Student>(
 					studentToUpdate,

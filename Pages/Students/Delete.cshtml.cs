@@ -30,7 +30,7 @@ namespace ContosoUniversity.Pages.Students
 			}
 
 			Student = await _context
-				.Student
+				.Students
 				.AsNoTracking()
 				.FirstOrDefaultAsync(m => m.ID == id);
 
@@ -48,13 +48,13 @@ namespace ContosoUniversity.Pages.Students
 		{
 			if (id == null) return NotFound();
 
-			Student = await _context.Student.FindAsync(id);
+			Student = await _context.Students.FindAsync(id);
 
 			try
 			{
 				if (Student != null)
 				{
-					_context.Student.Remove(Student);
+					_context.Students.Remove(Student);
 					await _context.SaveChangesAsync();
 				}
 				return RedirectToPage("./Index");

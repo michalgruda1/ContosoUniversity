@@ -20,7 +20,7 @@ namespace ContosoUniversity.Pages.Courses
 
 		public async Task OnGetAsync()
 		{
-			Course = await _context.Course
+			Course = await _context.Courses
 				.Select(c => new CourseViewModel
 				{
 					CourseID = c.CourseID,

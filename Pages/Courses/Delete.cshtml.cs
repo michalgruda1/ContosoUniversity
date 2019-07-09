@@ -28,7 +28,7 @@ namespace ContosoUniversity.Pages.Courses
 				return NotFound();
 			}
 
-			Course = await _context.Course
+			Course = await _context.Courses
 					.AsNoTracking()
 					.Include(c => c.Department)
 					.SingleOrDefaultAsync(m => m.CourseID == id);
@@ -48,14 +48,14 @@ namespace ContosoUniversity.Pages.Courses
 			}
 
 			// Course = await _context.Course.FindAsync(id);
-			Course = await _context.Course
+			Course = await _context.Courses
 			.AsNoTracking()
 			.SingleOrDefaultAsync(m => m.CourseID == id);
 
 
 			if (Course != null)
 			{
-				_context.Course.Remove(Course);
+				_context.Courses.Remove(Course);
 				await _context.SaveChangesAsync();
 			}
 
