@@ -12,13 +12,13 @@ namespace ContosoUniversity.Models
 		public int ID { get; set; }
 
 		[Required]
-		[Display(Name = "Last Name")]
+		[Display(Name = "Last Name", Prompt = "Enter Last Name")]
 		[StringLength(50)]
 		public string LastName { get; set; }
 
 		[Required]
 		[Column("FirstName")]
-		[Display(Name = "First Name", Prompt = "Enter First Name dkjshgkjdfls", Description = "Normalnie description")]
+		[Display(Name = "First Name", Prompt = "Enter First Name", Description = "Normalnie description")]
 		[StringLength(50)]
 		public string FirstMidName { get; set; }
 
