@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190704082929_RestrictDeletingInstructorOnDepartmentDelete.cs" />
     <Compile Remove="Migrations\20190704082929_RestrictDeletingInstructorOnDepartmentDelete.Designer.cs" />
+    <Compile Remove="Migrations\20190710104510_InstructorOnDeleteCascadeToCourseAssignments.cs" />
+    <Compile Remove="Migrations\20190710104510_InstructorOnDeleteCascadeToCourseAssignments.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
