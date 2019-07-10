@@ -1,5 +1,6 @@
 ﻿@page
 @model ContosoUniversity.Pages.Courses.IndexModel
+@using Syncfusion.EJ2
 
 @{
     ViewData["Title"] = "Courses";
@@ -10,45 +11,60 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Course[0].CourseID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course[0].Credits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course[0].DepartmentName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Course) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Credits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="control-section">
+
+    <ejs-grid id="Grid" dataSource="Model.Course" allowPaging="true" allowFiltering="true" allowSorting="true">
+        <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column field="CourseID" headerText="@Html.DisplayNameFor(model => model.Course[0].CourseID)" textAlign="Right" width="120"></e-grid-column>
+            <e-grid-column field="Title" headerText="@Html.DisplayNameFor(model => model.Course[0].Title)" width="150"></e-grid-column>
+            <e-grid-column field="Credits" headerText="@Html.DisplayNameFor(model => model.Course[0].Credits)" format="N0" width="130"></e-grid-column>
+            <e-grid-column field="DepartmentName" headerText="@Html.DisplayNameFor(model => model.Course[0].DepartmentName)" width="120"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+
+</div>
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Course[0].CourseID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Course[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Course[0].Credits)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Course[0].DepartmentName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Course) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

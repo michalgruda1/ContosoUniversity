@@ -8,12 +8,20 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        @* Syncfusion Essential JS 2 Styles *@
+        <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
+        @* Syncfusion Essential JS 2 Scripts *@
+        <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        @* Syncfusion Essential JS 2 Styles *@
+        <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
+        @* Syncfusion Essential JS 2 Scripts *@
+        <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
     </environment>
 </head>
 <body>
@@ -46,6 +54,7 @@
     <div class="container body-content">
         <profile name="Body profile">
             @RenderBody()
+            <ejs-scripts></ejs-scripts>
         </profile>
         <hr />
         <footer>
@@ -75,6 +84,7 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    <ejs-scripts></ejs-scripts>
 
     <mini-profiler />
 

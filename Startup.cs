@@ -41,6 +41,8 @@ namespace ContosoUniversity
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
+			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTE4NjE0QDMxMzcyZTMxMmUzMG5KWjVwZytTcHg5OTFYTTVOSGkxajNiR3Q4c2U1NTV6YmprMXp5MnAwbWs9");
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
